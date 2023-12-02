@@ -1,3 +1,6 @@
+using CyberWebSystem.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace CyberWebSystem
 {
     public class Program
@@ -8,6 +11,12 @@ namespace CyberWebSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Add Connection String
+            //Esta linea de codigo es para que se pueda leer el archivo appsettings.json
+            builder.Services.AddDbContext<MiContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("CadenaConexion"))
+            );
 
             var app = builder.Build();
 
