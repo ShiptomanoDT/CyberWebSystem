@@ -13,10 +13,11 @@ namespace CyberWebSystem.Controllers
     public class EquipoesController : Controller
     {
         private readonly MiContext _context;
-
-        public EquipoesController(MiContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public EquipoesController(MiContext context,IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Equipoes
@@ -56,7 +57,7 @@ namespace CyberWebSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Estado,Detalle,Imagen")] Equipo equipo)
+        public async Task<IActionResult> Create([Bind("Id,Codigo,Estado,Detalle,ImagenFile")] Equipo equipo)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +89,7 @@ namespace CyberWebSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Estado,Detalle,Imagen")] Equipo equipo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Estado,Detalle,ImagenFile")] Equipo equipo)
         {
             if (id != equipo.Id)
             {
@@ -99,6 +100,12 @@ namespace CyberWebSystem.Controllers
             {
                 try
                 {
+                    if (equipo.ImagenFile != null)
+                    {
+
+                        await SubirImagen(equipo);
+                    
+                    }
                     _context.Update(equipo);
                     await _context.SaveChangesAsync();
                 }
@@ -116,6 +123,21 @@ namespace CyberWebSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(equipo);
+        }
+
+        private  async Task SubirImagen(Equipo equipo)
+        {
+            //formar el nombre del archivo
+            string wwRootPath = _webHostEnvironment.WebRootPath;
+            string extension = Path.GetExtension(equipo.ImagenFile!.FileName);
+            string nombreImagen = $"{equipo.Id}{extension}";
+
+            equipo.Imagen = nombreImagen;
+
+            //copiar la foto en el proyecto del servidor
+            string path = Path.Combine($"{wwRootPath}/Imagenes/",nombreImagen);
+            var fileStream = new FileStream(path, FileMode.Create);
+            await equipo.ImagenFile.CopyToAsync(fileStream);
         }
 
         // GET: Equipoes/Delete/5
