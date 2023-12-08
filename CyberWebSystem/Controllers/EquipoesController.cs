@@ -125,6 +125,7 @@ namespace CyberWebSystem.Controllers
             return View(equipo);
         }
 
+        //Metodo para subir la imagen
         private  async Task SubirImagen(Equipo equipo)
         {
             //formar el nombre del archivo

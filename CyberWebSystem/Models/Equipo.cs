@@ -23,7 +23,6 @@ namespace CyberWebSystem.Models
         //Y la forma en la que actua en el interfaz es que se va a mostrar el texto que se le pase como parametro
         [Display (Name = "Subir Imagen del equipo")]
         //Con esta propiedad se va a poder subir la imagen
-        public IFormFile? ImagenFile { get; set; }//Para cargar la iamgen de la UI
-        
+        public IFormFile? ImagenFile { get; set; }//Para cargar la imagen de la UI  
     }
 }
