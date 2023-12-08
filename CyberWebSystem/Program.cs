@@ -34,10 +34,10 @@ namespace CyberWebSystem
             app.UseRouting();
 
             app.UseAuthorization();
-
+            // Inicio de la pagina web, este metodo se encarga de llamar a la pagina que se mostrara al principio del programa
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             app.Run();
         }

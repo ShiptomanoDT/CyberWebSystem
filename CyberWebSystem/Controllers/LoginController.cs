@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 
 namespace CyberWebSystem.Controllers
 {
@@ -7,6 +8,10 @@ namespace CyberWebSystem.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
