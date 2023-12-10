@@ -33,5 +33,9 @@ namespace CyberWebSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public async Task<IActionResult> Logout()
+        {
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

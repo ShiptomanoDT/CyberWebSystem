@@ -38,6 +38,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
                     </ul>
+                    <!-- Añadimos un nuevo elemento boton Cerrar Seccion -->
+                    <div class="d-flex">
+                        <span class="navbar-text">
+                            Nombre de Usuario
+                        </span>
+                        <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Seccion</a>
+                    </div>
                 </div>
             </div>
         </nav>
