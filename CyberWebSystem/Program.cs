@@ -1,4 +1,5 @@
 using CyberWebSystem.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberWebSystem
@@ -18,6 +19,14 @@ namespace CyberWebSystem
                 options.UseSqlite(builder.Configuration.GetConnectionString("CadenaConexion"))
             );
 
+            //Configuracion de Cookies, para Usuarios y Roles
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/Login/Index";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    option.AccessDeniedPath = "/Home/Privacy";
+                });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,6 +42,7 @@ namespace CyberWebSystem
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
             // Inicio de la pagina web, este metodo se encarga de llamar a la pagina que se mostrara al principio del programa
             app.MapControllerRoute(

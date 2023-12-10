@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CyberWebSystem.Context;
 using CyberWebSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 
 //Toda la logica de programacion de la aplicacion se encuentra en esta clase
 //que trabaja junto con la vista y el modelo
 namespace CyberWebSystem.Controllers
 {
+    [Authorize(Roles = "Administrador")]//Solo los usuarios con el rol Administrador podran usar este controlador
     public class UsuariosController : Controller
     {
         private readonly MiContext _context;//Se crea una variable de tipo MiContext,readonly significa que el valor de la variable no puede cambiar

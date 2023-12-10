@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,15 +36,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Equipoes" asp-action="Index">Inventario-Equipos</a>
                         </li>
-                        <!-- Añadimos un nuevo elemento al menú para el CRUD de Usuarios -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
+                        <!-- Si el rol es administrador podra acceder a el CRUD de Usuarios-->
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <!-- Añadimos un nuevo elemento al menú para el CRUD de Usuarios -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                        }
                     </ul>
                     <!-- Añadimos un nuevo elemento boton Cerrar Seccion -->
                     <div class="d-flex">
                         <span class="navbar-text">
-                            Nombre de Usuario
+                            @User.Identity?.Name | @User.FindFirstValue(ClaimTypes.Role)
                         </span>
                         <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Seccion</a>
                     </div>
