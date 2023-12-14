@@ -23,10 +23,10 @@ namespace CyberWebSystem.Controllers
         }
         //Esta funcion se encargar de la autentificacion con la base de datos de los usuarios
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(string logEmail, string logPassword)
         {
             var usuario = await _context.Usuarios
-                                        .Where(x => x.Email == email && x.Password == password)
+                                        .Where(x => x.Email == logEmail && x.Password == logPassword)
                                         .FirstOrDefaultAsync();
             if (usuario != null)
             {

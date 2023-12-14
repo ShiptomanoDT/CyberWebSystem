@@ -3,78 +3,71 @@
     Layout = null;
 }
 
+<!-- recordartorio: los paquetes usados en html y css son importados de la nube(internet)
+     por tanto si se desea ver la pagina completa se necesitara un buen internet -->	
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="css/style.css">
-
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/Vexels-Office-Desktop.512.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/style.css">
+    <!--===============================================================================================-->	
+    <title>Login | CyberSystem</title>
 </head>
-<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">CYBER SYSTEM</h2>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-4">
-					<div class="login-wrap p-0">
-						<h3 class="mb-4 text-center">Have an account?</h3>
-						<form asp-controller="Login" asp-action="Login" method="post">
-							<div class="form-group">
-								<input type="email" id="email" name="email" class="form-control" placeholder="email" required>
-							</div>
-							<div class="form-group">
-								<input id="password" type="password" name="password" class="form-control" placeholder="password" required>
-								<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-							</div>
-							<div class="form-group">
-								<button type="submit" class="form-control btn btn-primary submit px-3">Ingresar</button>
-							</div>
-							<div class="form-group d-md-flex">
-								<div class="w-50">
-									<label class="checkbox-wrap checkbox-primary">
-										Remember Me
-										<input type="checkbox" checked>
-										<span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#" style="color: #fff">Forgot Password</a>
-								</div>
-							</div>
-						</form>
-						@if (TempData["LoginError"] != null)
+<body>
+   <div class="container">
+      <div class="box">
+         <div class="box-login" id="login">
+            <div class="top-header">
+               <h3>CYBER SYSTEM</h3>
+               <small>Desea Iniciar Seccion?</small>
+            </div>
+            <form asp-controller="Login" asp-action="Login" method="post">
+               <div class="input-group">
+                  <div class="input-field">
+                     <input type="text" class="input-box" id="logEmail" name="logEmail" required>
+                     <label for="logEmail">Correo Electrónico</label>
+                  </div>
+               <div class="input-field">
+                  <input type="password" class="input-box" id="logPassword" name="logPassword" required>
+                  <label for="logPassword">Contraseña</label>
+                  <div class="eye-area">
+                     <div  class="eye-box" onclick="myLogPassword()">
+                        <i class="fa-regular fa-eye" id="eye"></i>
+                        <i class="fa-regular fa-eye-slash" id="eye-slash"></i>
+                     </div>
+                  </div>
+               </div>
+               <div class="remember">
+                  <input type="checkbox" id="formCheck" class="check">
+                  <label for="formCheck">Recuerdame</label>
+               </div>
+               <div class="input-field">
+                  <input type="submit" class="input-submit" value="Registrarse" required>
+               </div>
+            </form>
+               @if (TempData["LoginError"] != null)
 						{
 							<div class="alert alert-error">@TempData["LoginError"]</div>
 						}
-						<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-						<div class="social d-flex text-center">
-							<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-							<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+               <div class="top-header">
+                  <small>Es usted un cliente?</small>
+               </div>
+               <div class="input-field">
+                  <input type="submit" class="input-submit" value="Equipos - Cyber" required>
+               </div>
+            </div>
+         </div>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+            <!---------------------------- register --------------------------------------->
 
+        </div>
+        
+     </div>
+     <script src="~/style.js"></script>
 </body>
 </html>
-
