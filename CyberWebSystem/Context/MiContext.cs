@@ -22,5 +22,7 @@ namespace CyberWebSystem.Context
         public DbSet<Cliente> Clientes { get; set; }
         //Se van a crear las tablas a partir de los modelos
         public DbSet<Equipo> Equipos { get; set; }
+        //Se van a crear las tablas a partir de los modelos
+        public DbSet<CyberWebSystem.Models.Flete>? Flete { get; set; }
     }
 }

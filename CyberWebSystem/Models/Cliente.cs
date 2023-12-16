@@ -11,5 +11,8 @@ namespace CyberWebSystem.Models
         //Añadimos la anotación [Required] para indicar que esta propiedad es requerida
         [Required]
         public string? NombreCompleto { get; set; }
+
+        //relaciones
+        public virtual List<Flete>? Fletes { get; set; }
     }
 }

@@ -24,5 +24,8 @@ namespace CyberWebSystem.Models
         [Display (Name = "Subir Imagen del equipo")]
         //Con esta propiedad se va a poder subir la imagen
         public IFormFile? ImagenFile { get; set; }//Para cargar la imagen de la UI  
+
+        //relaciones
+        public virtual List<Flete>? Fletes { get; set; }
     }
 }

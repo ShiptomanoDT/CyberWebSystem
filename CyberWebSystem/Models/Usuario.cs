@@ -14,5 +14,8 @@ namespace CyberWebSystem.Models
         public string? Password { get; set; }
         [Required]
         public RolEnum Rol { get; set; }
+
+        //relaciones
+        public virtual List<Flete>? Fletes { get; set; }
     }
 }
