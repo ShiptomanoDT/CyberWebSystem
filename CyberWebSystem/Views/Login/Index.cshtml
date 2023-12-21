@@ -24,7 +24,7 @@
          <div class="box-login" id="login">
             <div class="top-header">
                <h3>CYBER SYSTEM</h3>
-               <small>Desea Iniciar Seccion?</small>
+               <small>Ingresar como empleado</small>
             </div>
             <form asp-controller="Login" asp-action="Login" method="post">
                <div class="input-group">
@@ -49,7 +49,7 @@
                   <label for="formCheck">Recuerdame</label>
                </div>
                <div class="input-field">
-                  <input type="submit" class="input-submit" value="Registrarse" required>
+                  <input type="submit" class="input-submit" value="INICIAR SESIÓN" required>
                </div>
             </form>
                @if (TempData["LoginError"] != null)
@@ -57,10 +57,10 @@
 							<div class="alert alert-error">@TempData["LoginError"]</div>
 						}
                <div class="top-header">
-                  <small>Es usted un cliente?</small>
+                    <small>Es usted un cliente?<br>Ingresa a nuestra lista de maquinas disponibles</small>
                </div>
                <div class="input-field">
-                  <input type="button" class="input-submit" value="Equipos - Cyber" required>
+                  <input type="button" class="input-submit" value="Maquinas disponibles" required>
                </div>
             </div>
          </div>
