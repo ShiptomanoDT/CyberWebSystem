@@ -1,30 +1,34 @@
 ﻿@model CyberWebSystem.Models.Cliente
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Crear Nuevo</h1>
 
 <h4>Cliente</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NombreCompleto" class="control-label"></label>
-                <input asp-for="NombreCompleto" class="form-control" />
-                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="NombreCompleto" class="control-label"></label>
+				<input asp-for="NombreCompleto" class="form-control" />
+				<span asp-validation-for="NombreCompleto" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Ci" class="control-label"></label>
+				<input asp-for="Ci" class="form-control" />
+				<span asp-validation-for="Ci" class="text-danger"></span>
+			</div>
+			<!--Al lado del boton crear se agrega un boton para volver a la lista de clientes-->
+			<div class="form-group">
+				<!--Para cambiar el nobre del boton se cambia el value-->
+				<input type="submit" value="GUARDAR" class="btn btn-primary" />
+				<a asp-action="Index">Regresar</a>
+			</div>
+		</form>
+	</div>
 </div>
 

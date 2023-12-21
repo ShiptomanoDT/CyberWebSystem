@@ -56,7 +56,7 @@ namespace CyberWebSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreCompleto")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("Id,NombreCompleto,Ci")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace CyberWebSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreCompleto")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreCompleto,Ci")] Cliente cliente)
         {
             if (id != cliente.Id)
             {

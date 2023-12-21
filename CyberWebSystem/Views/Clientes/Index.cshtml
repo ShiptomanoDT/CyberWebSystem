@@ -1,35 +1,44 @@
 ﻿@model IEnumerable<CyberWebSystem.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Lista de Clientes Registrados</h1>
+<h1>Listado de Clientes Registrados</h1>
 
 <p>
-    <a asp-action="Create">CREAR NUEVO</a>
+	<a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCompleto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCompleto)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				<!--@Html.DisplayNameFor(model => model.Ci)-->
+				CI
+			</th>
+			<th>
+				<!--@Html.DisplayNameFor(model => model.NombreCompleto)-->
+				Nombre Completo
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Ci)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NombreCompleto)
+				</td>
+				<td>
+					<a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Editar</a>
+					<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Asignar Maquina</a>
+					<a asp-action="Delete" class="btn btn-info" asp-route-id="@item.Id">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
