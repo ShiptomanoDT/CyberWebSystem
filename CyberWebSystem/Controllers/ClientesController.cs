@@ -41,6 +41,10 @@ namespace CyberWebSystem.Controllers
             {
                 return NotFound();
             }
+            //Cargando datos de equipos sin alterar el contexto
+            var equipos = await _context.Equipos.ToListAsync();
+            //Agregando los Equipos a Viewdata
+            ViewData["Equipos"] = equipos;
 
             return View(cliente);
         }

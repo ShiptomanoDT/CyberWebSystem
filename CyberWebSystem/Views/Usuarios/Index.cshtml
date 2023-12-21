@@ -1,53 +1,52 @@
 ﻿@model IEnumerable<CyberWebSystem.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de Usuario del Sistema</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCompleto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rol)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rol)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				<!--@Html.DisplayNameFor(model => model.NombreCompleto)-->
+				Nombre Completo
+			</th>
+			<th>
+				<!--@Html.DisplayNameFor(model => model.Email)-->
+				E-Mail
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Rol)
+			</th>
+			<th>
+				Opciones
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.NombreCompleto)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Rol)
+				</td>
+				<td>
+					<a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+					<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fas fa-ellipsis-h"></i></a>
+					<a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

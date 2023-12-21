@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Details";
 }
 
-<h1>Vinvular Flete</h1>
+<h1>Vincular Flete</h1>
 
 <div>
 	<h5>
@@ -16,10 +16,89 @@
 	<dl class="row justify-content-center">
 		<dt class="col-sm-8 text-center">
 			Lista de Computadoras
+
 		</dt>
 	</dl>
 </div>
 <div>
-	<a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.Id">Edit</a>
+	<!--Aqui es donde se agrega la tabla del modelo Equipo-->
+	@{
+		var equipos = (IEnumerable<CyberWebSystem.Models.Equipo>)ViewData["Equipos"];
+		if (equipos != null)
+		{
+			<style>
+				.table-bordered {
+					border: 2px solid black;
+					border-radius: 10px;
+				}
+
+					.table-bordered th, .table-bordered td {
+						border: 2px solid black;
+						vertical-align: middle;
+					}
+
+					.table-bordered tr:nth-child(even) {
+						background-color: #f2f2f2; /* Color para las filas pares */
+					}
+
+					.table-bordered tr:nth-child(odd) {
+						background-color: #e9e9e9; /* Color para las filas impares */
+					}
+
+					.table-bordered th {
+						background-color: #999999; /* Color para el encabezado */
+			</style>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Codigo<br>Identificador</th>
+						<th>Detalles del Equipo</th>
+						<th>Fotos del<br>Equipo</th>
+						<th>Tiempo<br>Transcurrido</th>
+						<th>Disponibilidad</th>
+						<th>Opciones</th>
+						<th>Usuario</th>
+						<!-- Agrega aquí más columnas según sea necesario -->
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var equipo in equipos)
+					{
+						<tr>
+							<td>@equipo.Codigo</td>
+							<td>@equipo.Detalle</td>
+							<!-- Agrega aquí más celdas según sea necesario -->
+							<td>
+								@if (equipo.Imagen != null)
+								{
+									<img src="~/Imagenes/@equipo.Imagen" class="img-thumbnail" width=" 150px">
+								}
+							</td>
+							<td>
+								<!-- Se agrega aqui el contador que llevara el registro de Hora -->
+							</td>
+							<td>@equipo.Estado</td>
+							<td>
+								<!-- Se agrega aqui los botones que redirigiran a otra seccion -->
+								<!--<a asp-action="Edit" class="btn btn-success" asp-route-id="@equipo.Id"><i class="fas fa-edit"></i></a>
+								<a asp-action="Details" class="btn btn-info" asp-route-id="@equipo.Id"><i class="fas fa-ellipsis-h"></i></a>
+								<a asp-action="Delete" class="btn btn-danger" asp-route-id="@equipo.Id"><i class="fas fa-trash"></i></a>-->
+							</td>
+							<td>
+								<!-- Se agrega aqui el usuario que esta usando el equipo -->
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+		else
+		{
+			<p>No hay equipos disponibles.</p>
+		}
+	}
+</div>
+<div>
+	<a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.Id">REGISTRAR FLETE</a>
 	<a asp-action="Index" class="btn btn-info">REGRESAR</a>
 </div>

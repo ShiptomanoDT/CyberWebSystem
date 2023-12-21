@@ -4,31 +4,54 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de Equipos Registrados</h1>
 
 <p>
-	<a asp-action="Create" style="border: 1px solid #000; border-radius: 5px; padding: 5px 10px; ">Create New</a>
+	<a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
 </p>
-<table class="table">
+
+<style>
+	.table-bordered {
+		border: 2px solid black;
+		border-radius: 10px;
+	}
+
+		.table-bordered th, .table-bordered td {
+			border: 2px solid black;
+			vertical-align: middle;
+		}
+
+		.table-bordered tr:nth-child(even) {
+			background-color: #f2f2f2; /* Color para las filas pares */
+		}
+
+		.table-bordered tr:nth-child(odd) {
+			background-color: #e9e9e9; /* Color para las filas impares */
+		}
+
+		.table-bordered th {
+			background-color: #999999; /* Color para el encabezado */
+</style>
+
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th>
 				@Html.DisplayNameFor(model => model.Codigo)<br>Identificador
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Detalle)s del Equipo 
+				@Html.DisplayNameFor(model => model.Detalle)s del Equipo
 			</th>
 			<th>
 				Fotos del<br>Equipo
 			</th>
 			<th>
-				<!--@Html.DisplayNameFor(model => model.Estado)--></>
+				<!--@Html.DisplayNameFor(model => model.Estado)--></style>
 				Disponibilidad
 			</th>
 			<th>
 				Opciones
 			</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -45,15 +68,28 @@
 					<!-- Para mostrar las fotos del equipo ingresamos la linea de codigo siguiente -->
 					<img src="~/Imagenes/@item.Imagen" class="img-thumbnail" width=" 150px">
 				</td>
-				<td>
+				<td onload="Cambio();">
 					@Html.DisplayFor(modelItem => item.Estado)
 				</td>
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					<a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a><br>
+					<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fas fa-ellipsis-h"></i></a><br>
+					<a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
 				</td>
 			</tr>
 		}
 	</tbody>
 </table>
+
+<script>
+	$(document).ready(function () {
+		$('table tbody tr').each(function () {
+			var estado = $(this).find('td:eq(3)').text();
+			if (estado.trim() == 'Libre') {
+				$(this).find('td:eq(3)').css('color', 'green');
+			} else if (estado.trim() == 'Ocupado') {
+				$(this).find('td:eq(3)').css('color', 'red');
+			}
+		});
+	});
+</script>
