@@ -8,7 +8,7 @@
 
 <div>
 	<h5>
-		Client: @Html.DisplayFor(model => model.NombreCompleto)
+		Cliente: @Html.DisplayFor(model => model.NombreCompleto)
 		<span style="margin-left: 50px;">CI: @Html.DisplayFor(model => model.Ci)
 	</h5>
 	<hr />
@@ -62,6 +62,9 @@
 					</tr>
 				</thead>
 				<tbody>
+					@{
+						var fletes = (IEnumerable<CyberWebSystem.Models.Flete>)ViewData["Fletes"];
+					}
 					@foreach (var equipo in equipos)
 					{
 						<tr>
@@ -86,6 +89,13 @@
 							</td>
 							<td>
 								<!-- Se agrega aqui el usuario que esta usando el equipo -->
+								@foreach (var flete in fletes)
+								{
+									if (flete.EquipoId == equipo.Id)
+									{
+										@flete.Cliente.NombreCompleto
+									}
+								}
 							</td>
 						</tr>
 					}
