@@ -24,10 +24,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privado</a>
                         </li>
                          <!-- Añadimos un nuevo elemento al menú para el CRUD de Clientes -->
                         <li class="nav-item">
@@ -57,7 +57,7 @@
                             @User.Identity?.Name | @User.FindFirstValue(ClaimTypes.Role)
                         </span>
                         <!-- Observacion !! Cerrar Seccion?-->
-                        <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Seccion</a>
+                        <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - CyberWebSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 || Página web: alquilertech-oruro.com.bo | Correo: info@alquilertech.com - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privado</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
