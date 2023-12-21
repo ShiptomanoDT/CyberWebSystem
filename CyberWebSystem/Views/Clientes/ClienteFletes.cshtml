@@ -1,0 +1,67 @@
+﻿@model CyberWebSystem.Models.Cliente
+
+@{
+	Layout = "_Layout";
+}
+<div>
+	<h5>
+		Cliente: @Html.DisplayFor(model => model.NombreCompleto)
+		<span style="margin-left: 50px;">CI: @Html.DisplayFor(model => model.Ci)
+	</h5>
+	<hr />
+	<h5>Registros asociados al Cliente</h5>
+	<!--la etiqueta dl es para mostrar los datos en forma de lista-->
+	<dl class="row justify-content-center">
+		<dt class="col-sm-8 text-center">
+			Lista de Computadoras
+		</dt>
+	</dl>
+</div>
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					N° Flete
+				</th>
+				<th>
+					Monto
+				</th>
+				<th>
+					Fecha
+				</th>
+				<th>
+					Horas<br>de Uso
+				</th>
+				<th>
+					Desde - Hasta
+				</th>
+				<th>
+					Máquina
+				</th>
+				<th>
+					Recibo<br>Opciones
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var flete in Model.Fletes)
+			{
+				<tr>
+					<td>@flete.Numero</td>
+					<td>@flete.Costo</td>
+					<td>@flete.Fecha</td>
+					<td>@flete.Hora</td>
+					<td><!--Aqui van las horas de donde a donde--></td>
+					<td>@flete.Equipo.Codigo</td>
+					<td>
+						<!--Aqui van los botones de opciones-->
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+<div>
+	<a asp-action="Details" class="btn btn-info" asp-route-id="@Model.Id">REGRESAR A LA LISTA</a>
+</div>

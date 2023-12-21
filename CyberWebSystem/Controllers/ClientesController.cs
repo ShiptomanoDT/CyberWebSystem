@@ -27,7 +27,7 @@ namespace CyberWebSystem.Controllers
                           Problem("Entity set 'MiContext.Clientes'  is null.");
         }
 
-        // GET: Clientes/Details/5
+        // GET: Clientes/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Clientes == null)
@@ -49,8 +49,23 @@ namespace CyberWebSystem.Controllers
             return View(cliente);
         }
 
-        // GET: Clientes/Create
-        public IActionResult Create()
+		// GET: Clientes/VerFlete/
+		public IActionResult ClienteFletes(int id)
+		{
+			//Esta linea busca el cliente por el id y carga los datos de los fletes
+			//registrados para ese cliente
+			var cliente = _context.Clientes.Include(c => c.Fletes)
+								   .ThenInclude(f => f.Equipo)//Cargando datos de equipos sin alterar el contexto
+								   .SingleOrDefault(c => c.Id == id);//Buscando el cliente por el id
+			if (cliente == null)
+			{
+				return NotFound();
+			}
+			return View(cliente);
+		}
+
+		// GET: Clientes/Create
+		public IActionResult Create()
         {
             return View();
         }
