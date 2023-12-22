@@ -87,12 +87,18 @@
 							<td>@equipo.Estado</td>
 							<td>
 								<!-- Botón para iniciar el contador -->
-								<button onclick="startTimer('@equipo.Id')" class="btn btn-success"><i class="fa-solid fa-play"></i></button>
+								<!--<button onclick="startTimer('@equipo.Id')" class="btn btn-success"><i class="fa-solid fa-play"></i></button>-->
+								@if(equipo.Estado == EstadoEnum.Libre){
+									<a asp-action="CambiarEstado" asp-route-equipoId="@equipo.Id" class="btn btn-success" onclick="startTimer('@equipo.Id')"><i class="fa-solid fa-play"></i></a>
+								}else{
+									<button class="btn btn-success" disabled><i class="fa-solid fa-play"></i></button>
+								}
+
 								<!--El boton genera un nuevo flete automaticamente, registra autmaticamente el id del cliente y el id del equipo correspondiente-->
 								<!--Aun necesita configurar y detectar el usuario que esta registrando el flete, el monto, la fecha y la hora-->
 								@if (equipo.Estado == EstadoEnum.Ocupado)
 								{
-									<a asp-action="CrearFlete" asp-route-clienteId="@Model.Id" asp-route-equipoId="@equipo.Id" class="btn btn-danger"><i class="fa-solid fa-stop"></i></a>
+									<a asp-action="CrearFlete" asp-route-clienteId="@Model.Id" asp-route-equipoId="@equipo.Id" class="btn btn-danger" onclick="stopTimer('@equipo.Id')"><i class="fa-solid fa-stop"></i></a>
 								}
 								else
 								{

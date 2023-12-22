@@ -209,6 +209,20 @@ namespace CyberWebSystem.Controllers
 			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Details), new { id = clienteId });
 		}
+		//Metodo para cambiar estado del equipo
+		public async Task<IActionResult> CambiarEstado(int equipoId)
+		{
+			var equipo = await _context.Equipos.FindAsync(equipoId);
+			if (equipo == null)
+			{
+				return NotFound();
+			}
+
+			equipo.Estado = equipo.Estado == EstadoEnum.Libre ? EstadoEnum.Ocupado : EstadoEnum.Libre;
+			_context.Update(equipo);
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Details), new { id = equipoId });
+		}
 
 		private bool ClienteExists(int id)
 		{
