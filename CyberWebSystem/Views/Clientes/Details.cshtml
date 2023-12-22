@@ -82,15 +82,19 @@
 							</td>
 							<td>
 								<!-- Se agrega aqui el contador que llevara el registro de Hora -->
+								<span id="timer-@equipo.Id">00:00:00</span>
 							</td>
 							<td>@equipo.Estado</td>
 							<td>
+								<!-- Botón para iniciar el contador -->
+								<button onclick="startTimer('@equipo.Id')" class="btn btn-success"><i class="fa-solid fa-play"></i></button>
 								<!--El boton genera un nuevo flete automaticamente, registra autmaticamente el id del cliente y el id del equipo correspondiente-->
 								<!--Aun necesita configurar y detectar el usuario que esta registrando el flete, el monto, la fecha y la hora-->
-								@if(equipo.Estado == EstadoEnum.Ocupado)
+								@if (equipo.Estado == EstadoEnum.Ocupado)
 								{
 									<a asp-action="CrearFlete" asp-route-clienteId="@Model.Id" asp-route-equipoId="@equipo.Id" class="btn btn-danger"><i class="fa-solid fa-stop"></i></a>
-								}else
+								}
+								else
 								{
 									<button class="btn btn-danger" disabled><i class="fa-solid fa-stop"></i></button>
 								}
@@ -103,7 +107,7 @@
 								<!-- Se agrega aqui el usuario que esta usando el equipo -->
 								@foreach (var flete in fletes)
 								{
-									if (flete.EquipoId == equipo.Id)
+									if (flete.EquipoId == equipo.Id && equipo.Estado != EstadoEnum.Libre)
 									{
 										<!--Para que funcionara esta linea se tuvo que agregar en Controller Details
 											//Cargando datos de Flete y Cliente sin alterar el contexto
@@ -117,6 +121,7 @@
 							</td>
 						</tr>
 					}
+					<script src="~/js/contador.js"></script>
 				</tbody>
 			</table>
 		}
