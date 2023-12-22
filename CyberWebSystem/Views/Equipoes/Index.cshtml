@@ -5,7 +5,6 @@
 }
 <!--RECORDAR QUE TODO LO REALIZADO EN REZOR SE LO PUEDE HACER CON JAVASCRIP-->
 <!--TODO DEPENDE DE LA COMODIDAD Y FACILIDAD A LA HORA DE USAR UN LENGUAJE-->
-
 <!--Razor - condicion en la  cual si no es usuario, no mostrar lo siguiente-->
 @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
 {
@@ -23,18 +22,22 @@
 }
 else
 {
+    <style>
+        body {
+            text-align: center; /* Centra el contenido en el cuerpo de la página */
+        }
+
+        h1 {
+            margin-top: 50px; /* Opcional: agregar un espacio superior */
+        }
+
+    </style>
     <body>
         <h1>Lista de Equipos<i class="fa-solid fa-computer"></i></h1>
     </body>
+    
 }
 <style>
-    body {
-        text-align: center; /* Centra el contenido en el cuerpo de la página */
-    }
-
-    h1 {
-        margin-top: 50px; /* Opcional: agregar un espacio superior */
-    }
     .table-bordered {
         border: 2px solid black;
         border-radius: 10px;
@@ -130,17 +133,19 @@ else
             var searchTerm = $("#search").val().toLowerCase();
 
             $("tr").each(function (index, value) {
-                if (index > 0) {
-                    var codigoValue = $(this).find("td:eq(0)").text().toLowerCase();
+                var codigoColumnIndex = 0; // Ajusta el índice según la posición de la columna "Codigo"
 
-                    if (!codigoValue.includes(searchTerm))) {
-                $(this).attr("hidden", true);
-            } else {
-                $(this).removeAttr("hidden");
-            }
+                if (index > 0) {
+                    var codigoValue = $(this).find("td:eq(" + codigoColumnIndex + ")").text().toLowerCase();
+
+                    if (!codigoValue.includes(searchTerm)) {
+                        $(this).attr("hidden", true);
+                    } else {
+                        $(this).removeAttr("hidden");
+                    }
+                }
+            });
         }
-                                            });
-                                        }
 
         $("#search").keydown(function (event) {
             if (event.keyCode === 13) {
@@ -148,6 +153,7 @@ else
                 search();
             }
         });
+
     </script>
 }
 
