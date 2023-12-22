@@ -7,43 +7,58 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CyberWebSystem</title>
-    <link rel="icon" type="image/png" href="images/icons/Vexels-Office-Desktop.512.png"/>
+    <link rel="icon" type="image/png" href="images/icons/Vexels-Office-Desktop.512.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CyberWebSystem.styles.css" asp-append-version="true" />
     <!--Libreria de iconos-->
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+
+    <!--RECORDAR QUE TODO LO REALIZADO EN RAZOR SE LO PUEDE HACER CON JAVASCRIP-->
+    <!--TODO DEPENDE DE LA COMODIDAD Y FACILIDAD A LA HORA DE USAR UN LENGUAJE-->
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CyberWebSystem</a>
+                <!--Razor - condicion en la  cual si no es usuario, el anclaje(enlace) sera distinto-->
+                @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CyberWebSystem</a>
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Equipoes" asp-action="Index">CyberWebSystem</a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privado</a>
-                        </li>
-                         <!-- Añadimos un nuevo elemento al menú para el CRUD de Clientes -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-                        </li>
+                        <!--Razor - condicion en la  cual si no es usuario, no mostrara las barras-->
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Principal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privado</a>
+                            </li>
+                            <!-- Añadimos un nuevo elemento al menú para el CRUD de Clientes -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                            </li>
+                            <!-- Añadimos un nuevo elemento al menú para el CRUD de Fletes -->
+                            <!-- Probando -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fletes" asp-action="Index">Flete</a>
+                            </li>
+                        }
                         <!-- Añadimos un nuevo elemento al menú para el CRUD de Equipos -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Equipoes" asp-action="Index">Inventario-Equipos</a>
-                        </li>
-                        <!-- Añadimos un nuevo elemento al menú para el CRUD de Fletes -->
-                        <!-- Probando -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Fletes" asp-action="Index">Flete</a>
                         </li>
                         <!-- Si el rol es administrador podra acceder a el CRUD de Usuarios-->
                         @if (User.IsInRole("Administrador"))
@@ -57,10 +72,28 @@
                     <!-- Añadimos un nuevo elemento boton Cerrar Seccion -->
                     <div class="d-flex">
                         <span class="navbar-text">
-                            @User.Identity?.Name | @User.FindFirstValue(ClaimTypes.Role)
+                            <!--Razor - condicion en la  cual si no es usuario, mostramos cliente-->
+                            @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+                            {
+                                <span>@User.Identity?.Name | @User.FindFirstValue(ClaimTypes.Role)</span>
+                            }
+                            else
+                            {
+                                <span>Cliente | </span>
+                            }
                         </span>
                         <!-- Observacion !! Cerrar Seccion?-->
-                        <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Sesión</a>
+                        <a class="nav-link" asp-controller="Login" asp-action="Logout">
+                            <!--Razor - condicion en la  cual si no es usuario, mostramos volver al login-->
+                            @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+                            {
+                                <span>Cerrar Sesión</span>
+                            }
+                            else
+                            {
+                                <span>Volver al Login</span>
+                            }
+                        </a>
                     </div>
                 </div>
             </div>
@@ -81,7 +114,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

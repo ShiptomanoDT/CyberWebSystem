@@ -1,126 +1,153 @@
 ﻿@model IEnumerable<CyberWebSystem.Models.Equipo>
 
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
+<!--RECORDAR QUE TODO LO REALIZADO EN REZOR SE LO PUEDE HACER CON JAVASCRIP-->
+<!--TODO DEPENDE DE LA COMODIDAD Y FACILIDAD A LA HORA DE USAR UN LENGUAJE-->
 
-<h1>Lista de Equipos Registrados <i class="fa-solid fa-computer"></i></h1>
+<!--Razor - condicion en la  cual si no es usuario, no mostrar lo siguiente-->
+@if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+{
+    <h1>Lista de Equipos Registrados <i class="fa-solid fa-computer"></i></h1>
 
-<p>
-	<a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
-</p>
+    <p>
+        <a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
+    </p>
 
-<div>
-	<p>Buscar por el Codigo:</p>
-	<input id="search" />
-	<button onclick="search()">Buscar</button>
-</div>
-
+    <div>
+        <p>Buscar por el Codigo:</p>
+        <input id="search" />
+        <button onclick="search()">Buscar</button>
+    </div>
+}
+else
+{
+    <body>
+        <h1>Lista de Equipos<i class="fa-solid fa-computer"></i></h1>
+    </body>
+}
 <style>
-	.table-bordered {
-		border: 2px solid black;
-		border-radius: 10px;
-	}
+    body {
+        text-align: center; /* Centra el contenido en el cuerpo de la página */
+    }
 
-		.table-bordered th, .table-bordered td {
-			border: 2px solid black;
-			vertical-align: middle;
-		}
+    h1 {
+        margin-top: 50px; /* Opcional: agregar un espacio superior */
+    }
+    .table-bordered {
+        border: 2px solid black;
+        border-radius: 10px;
+    }
 
-		.table-bordered tr:nth-child(even) {
-			background-color: #f2f2f2; /* Color para las filas pares */
-		}
+        .table-bordered th, .table-bordered td {
+            border: 2px solid black;
+            vertical-align: middle;
+        }
 
-		.table-bordered tr:nth-child(odd) {
-			background-color: #e9e9e9; /* Color para las filas impares */
-		}
+        .table-bordered tr:nth-child(even) {
+            background-color: #f2f2f2; /* Color para las filas pares */
+        }
 
-		.table-bordered th {
-			background-color: #999999; /* Color para el encabezado */
+        .table-bordered tr:nth-child(odd) {
+            background-color: #e9e9e9; /* Color para las filas impares */
+        }
+
+        .table-bordered th {
+            background-color: #999999; /* Color para el encabezado */
 </style>
 
 <table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Codigo)<br>Identificador
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Detalle)s del Equipo
-			</th>
-			<th>
-				Fotos del<br>Equipo
-			</th>
-			<th>
-				<!--@Html.DisplayNameFor(model => model.Estado)--></style>
-				Disponibilidad
-			</th>
-			<th>
-				Opciones
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Codigo)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Detalle)
-				</td>
-				<td>
-					<!-- Para mostrar las fotos del equipo ingresamos la linea de codigo siguiente -->
-					<img src="~/Imagenes/@item.Imagen" class="img-thumbnail" width=" 150px">
-				</td>
-				<td onload="Cambio();">
-					@Html.DisplayFor(modelItem => item.Estado)
-				</td>
-				<td>
-					<a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a><br>
-					<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fas fa-ellipsis-h"></i></a><br>
-					<a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
-				</td>
-			</tr>
-		}
-	</tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)<br>Identificador
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalle)s del Equipo
+            </th>
+            <th>
+                Fotos del<br>Equipo
+            </th>
+
+            <th>
+                <!--@Html.DisplayNameFor(model => model.Estado)--></style>
+                Disponibilidad
+            </th>
+            <!--Razor - condicion en la  cual si no es usuario, no mostrara las opciones-->
+            @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+            {
+                <th>
+                    Opciones
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle)
+                </td>
+                <td>
+                    <!-- Para mostrar las fotos del equipo ingresamos la linea de codigo siguiente -->
+                    <img src="~/Imagenes/@item.Imagen" class="img-thumbnail" width=" 150px">
+                </td>
+                <td onload="Cambio();">
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <!--Razor - condicion en la  cual si no es usuario, no mostrara las opciones-->
+                @if (User.IsInRole("Administrador") || User.IsInRole("Cajero"))
+                {
+                    <td>
+                        <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a><br>
+                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fas fa-ellipsis-h"></i></a><br>
+                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
 </table>
 @section scripts
-	{
-	<script>
-		$(document).ready(function () {
-			$('table tbody tr').each(function () {
-				var estado = $(this).find('td:eq(3)').text();
-				if (estado.trim() == 'Libre') {
-				$(this).find('td:eq(3)').css('color', 'green');
-				} else if (estado.trim() == 'Ocupado') {
-					$(this).find('td:eq(3)').css('color', 'red');
-				}
-			});
-		});
-		function search() {
-			var searchTerm = $("#search").val().toLowerCase();
+    {
+    <script>
+        $(document).ready(function () {
+            $('table tbody tr').each(function () {
+                var estado = $(this).find('td:eq(3)').text();
+                if (estado.trim() == 'Libre') {
+                    $(this).find('td:eq(3)').css('color', 'green');
+                } else if (estado.trim() == 'Ocupado') {
+                    $(this).find('td:eq(3)').css('color', 'red');
+                }
+            });
+        });
+        function search() {
+            var searchTerm = $("#search").val().toLowerCase();
 
-			$("tr").each(function (index, value) {
-				if (index > 0) {
-					var codigoValue = $(this).find("td:eq(0)").text().toLowerCase();
+            $("tr").each(function (index, value) {
+                if (index > 0) {
+                    var codigoValue = $(this).find("td:eq(0)").text().toLowerCase();
 
-					if (!codigoValue.includes(searchTerm))) {
-						$(this).attr("hidden", true);
-					} else {
-						$(this).removeAttr("hidden");
-					}
-				}
-			});
-		}
+                    if (!codigoValue.includes(searchTerm))) {
+                $(this).attr("hidden", true);
+            } else {
+                $(this).removeAttr("hidden");
+            }
+        }
+                                            });
+                                        }
 
-		$("#search").keydown(function (event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				search();
-			}
-		});
-	</script>
+        $("#search").keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                search();
+            }
+        });
+    </script>
 }
 
