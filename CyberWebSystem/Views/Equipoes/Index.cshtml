@@ -10,6 +10,12 @@
 	<a asp-action="Create" class="btn btn-info">CREAR NUEVO</a>
 </p>
 
+<div>
+	<p>Buscar por el Codigo:</p>
+	<input id="search" />
+	<button onclick="search()">Buscar</button>
+</div>
+
 <style>
 	.table-bordered {
 		border: 2px solid black;
@@ -80,16 +86,41 @@
 		}
 	</tbody>
 </table>
-
-<script>
-	$(document).ready(function () {
-		$('table tbody tr').each(function () {
-			var estado = $(this).find('td:eq(3)').text();
-			if (estado.trim() == 'Libre') {
+@section scripts
+	{
+	<script>
+		$(document).ready(function () {
+			$('table tbody tr').each(function () {
+				var estado = $(this).find('td:eq(3)').text();
+				if (estado.trim() == 'Libre') {
 				$(this).find('td:eq(3)').css('color', 'green');
-			} else if (estado.trim() == 'Ocupado') {
-				$(this).find('td:eq(3)').css('color', 'red');
+				} else if (estado.trim() == 'Ocupado') {
+					$(this).find('td:eq(3)').css('color', 'red');
+				}
+			});
+		});
+		function search() {
+			var searchTerm = $("#search").val().toLowerCase();
+
+			$("tr").each(function (index, value) {
+				if (index > 0) {
+					var codigoValue = $(this).find("td:eq(0)").text().toLowerCase();
+
+					if (!codigoValue.includes(searchTerm))) {
+						$(this).attr("hidden", true);
+					} else {
+						$(this).removeAttr("hidden");
+					}
+				}
+			});
+		}
+
+		$("#search").keydown(function (event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				search();
 			}
 		});
-	});
-</script>
+	</script>
+}
+
