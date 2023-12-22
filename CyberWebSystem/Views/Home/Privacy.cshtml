@@ -1,6 +1,84 @@
 ﻿@{
     ViewData["Title"] = "Políticas de Privacidad";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Privado</p>
+
+<head>
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap" rel="stylesheet">
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            text-align: center; /* Centro todo el contenido en el cuerpo de la página */
+        }
+
+        .banner {
+            display: flex;
+            margin-top: 80px;
+        }
+
+        .left-column, .right-column {
+            flex-basis: 50%;
+        }
+
+            .left-column img {
+                width: 100%;
+                object-fit: cover; /* Evita que la imagen se estire */
+                height: 100%;
+            }
+
+            .left-column h3 {
+            color: #333;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+            .left-column p {
+            color: black;
+            padding: .5rem 0;
+            padding-top: 1rem;
+            line-height: 1.5;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            
+        }
+
+            .right-column img {
+            width: 100%;
+            object-fit: cover; /* Evita que la imagen se estire */
+            height: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1 class="heading"><span>Privado</span></h1>
+    <div class="banner">
+        <div class="left-column">
+            <h3>ALQUILER DE COMPUTADORAS PARA JUEGOS DE INTERNET</h3>
+            <p>Mensaje de Bienvenida:</p>
+            <p>
+                ¡Bienvenido al Sistema de Gestión de Cibercafé "AlquilerTech"!<br><br>
+                Nos complace haber sido seleccionados para desarrollar este sistema a medida para su cibercafé. Estamos comprometidos a brindarle una solución que satisfaga todas sus necesidades y mejore la eficiencia de su negocio.<br><br>
+                ¿Qué puede hacer aquí en la sección "Privado"?<br>
+                - Soporte Técnico: Envíe cualquier pregunta o problema técnico de manera privada.<br>
+                Agradecemos la oportunidad de trabajar con usted y estamos aquí para ayudarle en cada paso del camino. Si tiene alguna pregunta o comentario, no dude en ponerse en contacto con nuestro equipo de soporte técnico.<a href="#">soporte@backdoor-tech.com</a><br><br>
+                ¡Gracias por confiar en Backdoor!
+            </p>
+        </div>
+
+        <div class="right-column">
+            <img src="/images/privado.jpg">
+        </div>
+    </div>
+
+</body>

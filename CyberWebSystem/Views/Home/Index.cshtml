@@ -2,35 +2,67 @@
 	ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			text-align: center; /* Centro todo el contenido en el cuerpo de la página */
+		}
+		.banner {
+			display: flex;
+			margin-top: 80px;
+		}
+
+		.left-column,.right-column {
+			flex-basis: 50%;
+			text-align: center;
+		}
+
+			.left-column img {
+				width: 100%;
+				object-fit: cover; /* Evita que la imagen se estire */
+				height: 100%;
+			}
+
+		.right-column {
+			display: flex;
+			flex-direction: column;
+				justify-content: center; /* Centra verticalmente el contenido de .right-column */
+			}
+
+			.right-column h1 {
+				font-size: 500%;
+				font-family: 'Dosis', sans-serif;
+
+			}
+
+			.right-column h2 {
+				font-size: 120%;
+				font-family: 'Dosis', sans-serif;
+			}
+	</style>
+</head>
+<body>
+
 	<!--<h1 class="display-4">Bienvenido</h1>-->
 	<!--<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>-->
-	<section>
-		<!-- Aquí puedes colocar tu imagen o contenido multimedia -->
-		<img src="ruta/a/tu/imagen.jpg" alt="Imagen descriptiva">
-	</section>
-	<!--Alineamos el texto a la derecha-->
-	<style>
-		section {
-			text-align: right; /* Alinea el texto al centro */
-			margin-top: 50px; /* Agrega margen arriba para separarlo de otros elementos */
-		}
+	
+	
 
-		h2 {
-			font-size: 36px; /* Ajusta el tamaño del texto */
-			margin-bottom: 10px; /* Agrega margen abajo para separarlo del párrafo siguiente */
-		}
-
-		p {
-			font-size: 18px; /* Ajusta el tamaño del párrafo */
-		}
-	</style>
-
-	<div class="text-center">
-		<section>
-			<h2>BIENVENIDO</h2>
-			<p>ALQUILER DE COMPUTADORAS PARA JUEGOS E INTERNET</p>
-		</section>
+	<div class="banner">
+		<div class="left-column">
+			<img src="images/home.jpg">
+		</div>
+		
+		<div class="right-column">
+			<h1>BIENVENIDO</h1>
+			<h2>ALQUILER DE COMPUTADORAS PARA JUEGOS E INTERNET</h2>
+		</div>
 	</div>
 
 
@@ -38,4 +70,5 @@
 		<h2>BIENVENIDO</h2>
 		<p>ALQUILER DE COMPUTADORAS PARA JUEGOS E INTERNET</p>
 	</section>-->
-</div>
+	
+</body>
