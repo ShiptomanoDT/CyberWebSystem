@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CyberWebSystem.Context;
 using CyberWebSystem.Models;
+using CyberWebSystem.Dtos;
+
 
 namespace CyberWebSystem.Controllers
 {
@@ -176,6 +178,36 @@ namespace CyberWebSystem.Controllers
 
 			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
+		}
+
+		//Metodo para crear un nuevo flete para un cliente
+		//El boton que llama a este metodo esl de Stop que detendra el contador de tiempo
+		//Y registrara el flete, al mismo tiempo cambia el estado del equipo a libre y se deshabilita hasta que 
+		//el boton de play sea presionado
+		public async Task<IActionResult> CrearFlete(int clienteId, int equipoId)
+		{
+			if (_context.Clientes == null || _context.Equipos == null)
+			{
+				return Problem("Entity set 'MiContext.Clientes' or 'MiContext.Equipos' is null.");
+			}
+			var cliente = await _context.Clientes.FindAsync(clienteId);
+			var equipo = await _context.Equipos.FindAsync(equipoId);
+			if (cliente == null || equipo == null)
+			{
+				return NotFound();
+			}
+			//Con esta linea editamos el estado del equipo a Libre
+			equipo.Estado = EstadoEnum.Libre;
+			var flete = new Flete
+			{
+				ClienteId = cliente.Id,
+				EquipoId = equipo.Id,
+				UsuarioId = 1,
+				Fecha = DateTime.Now
+			};
+			_context.Flete.Add(flete);
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Details), new { id = clienteId });
 		}
 
 		private bool ClienteExists(int id)

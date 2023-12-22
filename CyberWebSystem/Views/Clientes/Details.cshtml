@@ -1,5 +1,8 @@
 ﻿@model CyberWebSystem.Models.Cliente
-
+@{
+	//Añadiendo la libreria CyberWebSystem.Dtos para poder manejar EnumEstado en
+}
+@using CyberWebSystem.Dtos
 @{
 	ViewData["Title"] = "Details";
 }
@@ -82,6 +85,15 @@
 							</td>
 							<td>@equipo.Estado</td>
 							<td>
+								<!--El boton genera un nuevo flete automaticamente, registra autmaticamente el id del cliente y el id del equipo correspondiente-->
+								<!--Aun necesita configurar y detectar el usuario que esta registrando el flete, el monto, la fecha y la hora-->
+								@if(equipo.Estado == EstadoEnum.Ocupado)
+								{
+									<a asp-action="CrearFlete" asp-route-clienteId="@Model.Id" asp-route-equipoId="@equipo.Id" class="btn btn-danger"><i class="fa-solid fa-stop"></i></a>
+								}else
+								{
+									<button class="btn btn-danger" disabled><i class="fa-solid fa-stop"></i></button>
+								}
 								<!-- Se agrega aqui los botones que redirigiran a otra seccion -->
 								<!--<a asp-action="Edit" class="btn btn-success" asp-route-id="@equipo.Id"><i class="fas fa-edit"></i></a>
 								<a asp-action="Details" class="btn btn-info" asp-route-id="@equipo.Id"><i class="fas fa-ellipsis-h"></i></a>
@@ -93,6 +105,12 @@
 								{
 									if (flete.EquipoId == equipo.Id)
 									{
+										<!--Para que funcionara esta linea se tuvo que agregar en Controller Details
+											//Cargando datos de Flete y Cliente sin alterar el contexto
+											var fletes = await _context.Flete
+														.Include(f => f.Cliente)
+														.ToListAsync();
+										//Esta linea de codigo permite que se muestre el nombre del cliente en la tabla sin posibles errores relacionasdos al valor nulo-->
 										@flete.Cliente.NombreCompleto
 									}
 								}

@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using CyberWebSystem.Context;
 using CyberWebSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+
+
 
 //Toda la logica de programacion de la aplicacion se encuentra en esta clase
 //que trabaja junto con la vista y el modelo
@@ -17,10 +20,16 @@ namespace CyberWebSystem.Controllers
     public class UsuariosController : Controller
     {
         private readonly MiContext _context;//Se crea una variable de tipo MiContext,readonly significa que el valor de la variable no puede cambiar
+		//Se crean variables de tipo UserManager y SignInManager para manejar los usuarios
+        private readonly UserManager<Usuario> _userManager;//Se crea una variable de tipo UserManager para manejar los usuarios
+		private readonly SignInManager<Usuario> _signInManager;//Se crea una variable de tipo SignInManager para manejar los usuarios
 
-        public UsuariosController(MiContext context)//Se crea un constructor que recibe un parametro de tipo MiContext
+        //Se agrega un constructor que recibe como parametros un UserManager y un SignInManager para manejar los usuarios
+		public UsuariosController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, MiContext context)//Se crea un constructor que recibe un parametro de tipo MiContext
         {
-            _context = context;//Se asigna el valor del parametro al atributo de la clase
+			_userManager = userManager;//Ahora podemos usar el UserManager y el SignInManager en toda la clase
+			_signInManager = signInManager;
+			_context = context;//Se asigna el valor del parametro al atributo de la clase
         }
 
         // GET: Usuarios
