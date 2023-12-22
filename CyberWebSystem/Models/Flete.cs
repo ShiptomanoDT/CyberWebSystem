@@ -12,7 +12,7 @@ namespace CyberWebSystem.Models
         public DateTime Fecha { get; set; }
         [Required]
         public TimeSpan Hora { get; set; }
-        [Required]
+
         public int Numero { get; set; }
 
 

@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'arial', sans serif;
+}
+
+.contenedor {
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 10px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #C0C0C0;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.onlyPrint {
+    display: none;
+}
+
+@media print {
+    .onlyPrint {
+        display: inline;
+    }
+}
+
+@page {
+    size: 4.2in 7.8in;
+    margin: 0.5cm;
+}

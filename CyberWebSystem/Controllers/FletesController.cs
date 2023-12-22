@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CyberWebSystem.Context;
 using CyberWebSystem.Models;
+using System.Globalization;
 
 namespace CyberWebSystem.Controllers
 {
@@ -61,13 +62,53 @@ namespace CyberWebSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IniciarContador()
+        {
+            // Puedes almacenar la fecha y hora de inicio en alguna variable de sesión o base de datos
+            HttpContext.Session.SetString("InicioContador", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            // Puedes devolver algún tipo de confirmación al cliente si es necesario
+            return Json(new { success = true, message = "Contador iniciado exitosamente." });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Costo,Fecha,Hora,Numero,UsuarioId,EquipoId,ClienteId")] Flete flete)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(flete);
+                //Condición para el flete
+                var equipo = await _context.Equipos.FindAsync(flete.EquipoId);
+                if (equipo!.Estado != 0)
+                {
+                    flete.Fecha = DateTime.Now;
+                    flete.Id++;
+                    var inicioContadorString = HttpContext.Session.GetString("InicioContador");
+                    if (!string.IsNullOrEmpty(inicioContadorString))
+                    {
+                        var inicioContador = DateTime.ParseExact(inicioContadorString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                        var tiempoTranscurrido = DateTime.Now - inicioContador;
+
+                        // Calcular el monto en base al tiempo transcurrido
+                        var montoIncremental = 0.50m; // $0.50 por cada 20 minutos
+                        var incrementosDeTiempo = (int)(tiempoTranscurrido.TotalMinutes / 20);
+                        flete.Costo = incrementosDeTiempo * montoIncremental;
+
+                        // Asignar la duración transcurrida directamente a Hora
+                        flete.Hora = tiempoTranscurrido;
+                    }
+                    //Para añadir el usuario 
+                    flete.UsuarioId = int.Parse(User.Claims.ToList()[2].Value);
+                    _context.Add(flete);
+                    equipo.Estado = equipo.Estado - 1;
+                    _context.Update(equipo);
+                }
                 await _context.SaveChangesAsync();
+                //Include
+                //return RedirectToAction("Details", "Ventas", new { id = venta.Id});
+                //Extend
                 return RedirectToAction(nameof(Index));
+
+
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", flete.ClienteId);
             ViewData["EquipoId"] = new SelectList(_context.Equipos, "Id", "Codigo", flete.EquipoId);

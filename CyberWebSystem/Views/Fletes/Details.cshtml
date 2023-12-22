@@ -1,60 +1,80 @@
-﻿@model CyberWebSystem.Models.Flete
+﻿@using CyberWebSystem.Dtos;
+@model CyberWebSystem.Models.Flete
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = null;
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
 
-<div>
-    <h4>Flete</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Costo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Costo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hora)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Equipo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Equipo.Codigo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.NombreCompleto)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Recibo</title>
+    <link href="~/css/printer.css" rel="stylesheet" />
+    <script src="~/js/qrcode.min.js"></script>
+</head>
+<body onload="window.print();" onafterprint="history.back()">
+    <div class="contenedor onlyPrint">
+        <div style="text-align: center">
+            <img src="~/images/Vexels-Office-Desktop.512.png" alt="logo" width="50px" />
+            <br />
+            <h3>
+                Cyber System <br />
+                COFFEE
+            </h3>
+
+            <h1>RECIBO # @Html.DisplayFor(model => model.Id)</h1>
+            
+        </div>
+
+        <hr />
+
+        <dl class="row">
+            <dt class="col-sm-12">
+                Fecha: @Html.DisplayFor(model => model.Fecha)
+            </dt>
+            <dt class="col-sm-12">
+                CI: @Html.DisplayFor(model => model.Cliente!.Ci)
+            </dt>
+            <dt class="col-sm-12">
+                Cliente: @Html.DisplayFor(model => model.Cliente!.NombreCompleto)
+            </dt>
+            <hr />
+            <p>Datos del Equipo</p>
+            <dt class="col-sm-12">
+                Codigo: @Html.DisplayFor(model => model.Equipo!.Codigo)
+            </dt>
+            <dt class="col-sm-12">
+                Fecha: @Html.DisplayFor(model => model.Fecha)
+            </dt>
+            <dt class="col-sm-12">
+                Desde: @Html.DisplayFor(model => model.Fecha.Hour) Hasta: @Html.DisplayFor(model => model.Fecha + model.Hora)
+            </dt>
+
+            <dt class="col-sm-12">
+                Costo: @Html.DisplayFor(model => model.Costo)
+            </dt>
+        </dl>
+        <hr />
+        
+
+        <br />
+        
+        @{
+            string literal = Global.NumeroALetras(Model.Costo);
+        }
+        Son: @literal
+
+
+        <div style="margin-top: 20px; width:100%">
+            <div id="qrcode"></div>
+        </div>
+
+        <p>Usuario: @Model.Usuario!.Email</p>
+        <div style ="text-align: center"><img src="~/images/Vexels-Office-Desktop.512.png" alt="logo" width="50px" /></div>
+        
+    </div>
+    
+</body>
+</html>
