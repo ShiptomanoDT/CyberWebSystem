@@ -9,6 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div>
+    <p>Buscar por Correo o Nombre:</p>
+    <input id="search" />
+    <button onclick="search()">Buscar</button>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -51,3 +58,31 @@
 }
     </tbody>
 </table>
+@section scripts
+    {
+    <script>
+        function search() {
+            var searchTerm = $("#search").val().toLowerCase();
+
+            $("tr").each(function (index, value) {
+                if (index > 0) {
+                    var emailValue = $(this).find("td:eq(0)").text().toLowerCase();
+                    var nombreCompletoValue = $(this).find("td:eq(1)").text().toLowerCase();
+
+                    if (!emailValue.includes(searchTerm) && !nombreCompletoValue.includes(searchTerm)) {
+                        $(this).attr("hidden", true);
+                    } else {
+                        $(this).removeAttr("hidden");
+                    }
+                }
+            });
+        }
+
+        $("#search").keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                search();
+            }
+        });
+    </script>
+}

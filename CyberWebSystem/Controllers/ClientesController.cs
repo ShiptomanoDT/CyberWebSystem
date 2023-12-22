@@ -27,6 +27,7 @@ namespace CyberWebSystem.Controllers
                           Problem("Entity set 'MiContext.Clientes'  is null.");
         }
 
+
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -157,7 +158,7 @@ namespace CyberWebSystem.Controllers
 
         private bool ClienteExists(int id)
         {
-          return (_context.Clientes?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Clientes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
